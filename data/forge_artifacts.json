@@ -1,0 +1,24 @@
+[
+  {
+    "id": "artifact-1",
+    "path": "/artifacts/forge-run-1733850000/pipeline.log",
+    "name": "pipeline.log",
+    "type": "log",
+    "size": 2048,
+    "runId": "forge-run-1733850000",
+    "sphere": "forge",
+    "createdAt": "2025-12-09T10:05:00Z",
+    "url": "http://localhost:8000/artifacts/forge-run-1733850000/pipeline.log"
+  },
+  {
+    "id": "artifact-2",
+    "path": "/artifacts/forge-run-1733760600/health-check.json",
+    "name": "health-check.json",
+    "type": "data",
+    "size": 512,
+    "runId": "forge-run-1733760600",
+    "sphere": "forge",
+    "createdAt": "2025-12-09T09:10:00Z",
+    "url": "http://localhost:8000/artifacts/forge-run-1733760600/health-check.json"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "xau-report-1",
+    "title": "Daily XAU Brief - 2025-12-10",
+    "type": "daily",
+    "relatedMissionId": "xau-mission-1",
+    "relatedRunId": "xau-run-1733900800",
+    "sphere": "orunmila",
+    "content": "# Daily XAU Trading Brief\n## Date: 2025-12-10\n\n### Market Regime\n**Ranging** - Consolidation phase within key levels\n\n### Daily Stance\n**Neutral** - Awaiting directional clarity\n\n### Key Levels\n- Resistance: 2050.0, 2055.5\n- Support: 2040.0, 2035.5\n\n### Technical Snapshot\n- D1: Bullish structure intact\n- H4: Neutral consolidation\n- H1: Bearish short-term\n- M15: Neutral\n\n### Trade Ideas\nNo high-probability setups. Wait for breakout confirmation.\n\n### Risk Notes\n- Avoid overtrading in consolidation\n- Focus on key level reactions",
+    "contentType": "markdown",
+    "createdAt": "2025-12-10T06:15:00Z"
+  },
+  {
+    "id": "xau-report-2",
+    "title": "Technical Analysis Report",
+    "type": "run",
+    "relatedSkillId": "xau-skill-2",
+    "relatedRunId": "xau-run-1733904400",
+    "sphere": "orunmila",
+    "content": "# XAU Technical Analysis\n\n## Multi-Timeframe Analysis\n\n### Daily (D1)\n- Trend: Bullish\n- Key observation: Holding above 2000 support\n- Next target: 2100\n\n### 4-Hour (H4)\n- Pattern: Symmetrical triangle\n- Break direction pending\n\n### 1-Hour (H1)\n- Short-term pullback in progress\n- Support at 2040",
+    "contentType": "markdown",
+    "createdAt": "2025-12-10T08:05:00Z"
+  }
+]

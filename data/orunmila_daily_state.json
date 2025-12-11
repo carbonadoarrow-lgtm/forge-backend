@@ -1,0 +1,29 @@
+{
+  "date": "2025-12-10",
+  "regime": "ranging",
+  "stance": "neutral",
+  "confidence": 75,
+  "keyLevels": {
+    "resistance": [2050.0, 2055.5],
+    "support": [2040.0, 2035.5]
+  },
+  "technical": {
+    "d1": "bullish",
+    "h4": "neutral",
+    "h1": "bearish",
+    "m15": "neutral"
+  },
+  "institutionalZones": [
+    {
+      "level": 2048.0,
+      "type": "supply",
+      "strength": "strong"
+    },
+    {
+      "level": 2037.5,
+      "type": "demand",
+      "strength": "medium"
+    }
+  ],
+  "tradeIdeas": []
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "xau-mission-1",
+    "name": "Daily XAU Intelligence",
+    "description": "Complete daily XAU trading intelligence generation",
+    "type": "daily",
+    "sphere": "orunmila",
+    "lastRunTime": "2025-12-10T06:00:00Z",
+    "lastRunStatus": "succeeded",
+    "skills": ["xau-skill-1", "xau-skill-2"],
+    "can_run": true
+  },
+  {
+    "id": "xau-mission-2",
+    "name": "Weekly Cycle Review",
+    "description": "Weekly cycle performance review and analysis",
+    "type": "weekly",
+    "sphere": "orunmila",
+    "lastRunTime": "2025-12-09T18:00:00Z",
+    "lastRunStatus": "succeeded",
+    "skills": ["xau-skill-3", "xau-skill-4"],
+    "can_run": true
+  },
+  {
+    "id": "xau-mission-3",
+    "name": "Monthly Structural Update",
+    "description": "Monthly structural analysis and key level updates",
+    "type": "monthly",
+    "sphere": "orunmila",
+    "lastRunTime": "2025-12-01T00:00:00Z",
+    "lastRunStatus": "succeeded",
+    "skills": ["xau-skill-4"],
+    "can_run": true
+  }
+]

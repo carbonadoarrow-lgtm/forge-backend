@@ -1,0 +1,54 @@
+[
+  {
+    "id": "xau-skill-1",
+    "name": "Daily Brief Generator",
+    "description": "Generates XAU daily trading intelligence brief",
+    "type": "analysis",
+    "sphere": "orunmila",
+    "lastRunTime": "2025-12-10T06:00:00Z",
+    "lastRunStatus": "succeeded",
+    "tags": ["daily", "brief", "xau"],
+    "config": {},
+    "can_run": true,
+    "can_edit_config": false
+  },
+  {
+    "id": "xau-skill-2",
+    "name": "Technical Analysis",
+    "description": "Multi-timeframe technical analysis for XAU",
+    "type": "analysis",
+    "sphere": "orunmila",
+    "lastRunTime": "2025-12-10T08:00:00Z",
+    "lastRunStatus": "succeeded",
+    "tags": ["technical", "analysis"],
+    "config": {},
+    "can_run": true,
+    "can_edit_config": true
+  },
+  {
+    "id": "xau-skill-3",
+    "name": "Cycle Performance Tracker",
+    "description": "Tracks and analyzes 4-week cycle performance",
+    "type": "tracking",
+    "sphere": "orunmila",
+    "lastRunTime": "2025-12-09T20:00:00Z",
+    "lastRunStatus": "succeeded",
+    "tags": ["cycle", "performance"],
+    "config": {},
+    "can_run": true,
+    "can_edit_config": false
+  },
+  {
+    "id": "xau-skill-4",
+    "name": "Structural Analysis",
+    "description": "Long-term structural market analysis",
+    "type": "analysis",
+    "sphere": "orunmila",
+    "lastRunTime": "2025-12-07T12:00:00Z",
+    "lastRunStatus": "succeeded",
+    "tags": ["structural", "long-term"],
+    "config": {},
+    "can_run": true,
+    "can_edit_config": false
+  }
+]

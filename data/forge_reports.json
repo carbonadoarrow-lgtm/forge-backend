@@ -1,0 +1,33 @@
+[
+  {
+    "id": "report-1",
+    "title": "CI Pipeline Validation Report",
+    "type": "run",
+    "relatedSkillId": "skill-1",
+    "relatedRunId": "forge-run-1733850000",
+    "sphere": "forge",
+    "content": "# CI Pipeline Validation Report\n\n## Summary\nAll pipeline checks passed successfully.\n\n## Details\n- Security scan: ✅ Passed\n- Dependency check: ✅ Passed\n- Configuration validation: ✅ Passed\n\n## Recommendations\n- Update Node.js version to latest LTS\n- Review deprecated dependencies",
+    "contentType": "markdown",
+    "createdAt": "2025-12-09T10:05:00Z"
+  },
+  {
+    "id": "report-2",
+    "title": "Daily Infrastructure Check Report",
+    "type": "run",
+    "relatedMissionId": "mission-1",
+    "relatedRunId": "forge-run-1733760600",
+    "sphere": "forge",
+    "content": "# Daily Infrastructure Check\n\n## Infrastructure Health\n- All services: ✅ Operational\n- System load: Normal\n- Network latency: 15ms avg\n\n## Issues\nNo issues detected.",
+    "contentType": "markdown",
+    "createdAt": "2025-12-09T09:10:00Z"
+  },
+  {
+    "id": "report-3",
+    "title": "System Diagnostic Report",
+    "type": "diagnostic",
+    "sphere": "forge",
+    "content": "# System Diagnostic\n\n## CPU Usage\n- Current: 45%\n- Peak (24h): 72%\n\n## Memory\n- Used: 12.5 GB / 32 GB\n- Available: 19.5 GB",
+    "contentType": "markdown",
+    "createdAt": "2025-12-08T20:00:00Z"
+  }
+]

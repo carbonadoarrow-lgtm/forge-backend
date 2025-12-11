@@ -1,0 +1,35 @@
+[
+  {
+    "id": "mission-1",
+    "name": "Daily Infrastructure Check",
+    "description": "Comprehensive infrastructure health check and validation",
+    "type": "daily",
+    "sphere": "forge",
+    "lastRunTime": "2025-12-09T09:00:00Z",
+    "lastRunStatus": "succeeded",
+    "skills": ["skill-1", "skill-2"],
+    "can_run": true
+  },
+  {
+    "id": "mission-2",
+    "name": "Weekly System Audit",
+    "description": "Weekly security and performance audit",
+    "type": "weekly",
+    "sphere": "forge",
+    "lastRunTime": "2025-12-03T08:00:00Z",
+    "lastRunStatus": "succeeded",
+    "skills": ["skill-1", "skill-2", "skill-4"],
+    "can_run": true
+  },
+  {
+    "id": "mission-3",
+    "name": "Deployment Pipeline",
+    "description": "End-to-end deployment validation and execution",
+    "type": "pipeline",
+    "sphere": "forge",
+    "lastRunTime": "2025-12-08T16:00:00Z",
+    "lastRunStatus": "failed",
+    "skills": ["skill-1", "skill-3"],
+    "can_run": true
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "forge-run-1765362763",
+    "type": "skill",
+    "name": "CI Pipeline Validator",
+    "sphere": "forge",
+    "status": "running",
+    "startTime": "2025-12-10T05:32:43.678882Z",
+    "endTime": null,
+    "duration": null,
+    "triggerSource": "manual",
+    "skillId": "skill-1",
+    "missionId": null,
+    "reportId": null,
+    "error": null
+  },
+  {
+    "id": "forge-run-1733850000",
+    "type": "skill",
+    "name": "CI Pipeline Validator",
+    "sphere": "forge",
+    "status": "succeeded",
+    "startTime": "2025-12-09T10:00:00Z",
+    "endTime": "2025-12-09T10:05:00Z",
+    "duration": 300,
+    "triggerSource": "manual",
+    "skillId": "skill-1",
+    "missionId": null,
+    "reportId": "report-1",
+    "error": null
+  },
+  {
+    "id": "forge-run-1733853600",
+    "type": "skill",
+    "name": "Infrastructure Health Check",
+    "sphere": "forge",
+    "status": "running",
+    "startTime": "2025-12-09T11:00:00Z",
+    "endTime": null,
+    "duration": null,
+    "triggerSource": "scheduled",
+    "skillId": "skill-2",
+    "missionId": null,
+    "reportId": null,
+    "error": null
+  },
+  {
+    "id": "forge-run-1733760600",
+    "type": "mission",
+    "name": "Daily Infrastructure Check",
+    "sphere": "forge",
+    "status": "succeeded",
+    "startTime": "2025-12-09T09:00:00Z",
+    "endTime": "2025-12-09T09:10:00Z",
+    "duration": 600,
+    "triggerSource": "scheduled",
+    "skillId": null,
+    "missionId": "mission-1",
+    "reportId": "report-2",
+    "error": null
+  }
+]

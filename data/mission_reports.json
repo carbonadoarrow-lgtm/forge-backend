@@ -1,0 +1,28 @@
+[
+  {
+    "id": "mission-report-1765365395",
+    "mission_id": "mission-1",
+    "sphere": "forge",
+    "generated_at": "2025-12-10T06:16:35.041986Z",
+    "timeframe_start": null,
+    "timeframe_end": null,
+    "status": "ok",
+    "stats": {
+      "total_runs": 1,
+      "succeeded": 1,
+      "failed": 0,
+      "running": 0
+    },
+    "highlights": [
+      "Total runs: 1",
+      "Succeeded: 1",
+      "Failed: 0",
+      "Running: 0"
+    ],
+    "recommendations": [
+      "Consider scheduling this mission if it's not already automated."
+    ],
+    "raw_markdown": "# Mission Report for mission-1\n\nGenerated at: 2025-12-10T06:16:35.041986Z\n\n## Summary\n- Total runs: 1\n- Succeeded: 1\n- Failed: 0\n- Running: 0\n\n## Highlights\n- Total runs: 1\n- Succeeded: 1\n- Failed: 0\n- Running: 0\n\n## Recommendations\n- Consider scheduling this mission if it's not already automated.",
+    "generated_by": "system"
+  }
+]

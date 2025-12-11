@@ -1,0 +1,194 @@
+from typing import List, Optional, Dict, Any
+from pydantic import BaseModel, Field
+
+
+# ---------- Shared domain models ----------
+
+class Skill(BaseModel):
+    id: str
+    name: str
+    description: str
+    type: str
+    sphere: str  # "forge" | "orunmila"
+    lastRunTime: Optional[str] = None
+    lastRunStatus: Optional[str] = None  # "succeeded" | "failed" | "running" | "queued" | "cancelled"
+    tags: Optional[List[str]] = []
+    config: Optional[Dict[str, Any]] = {}
+    can_run: Optional[bool] = True
+    can_edit_config: Optional[bool] = False
+
+
+class Mission(BaseModel):
+    id: str
+    name: str
+    description: str
+    type: str  # daily | weekly | pipeline | nightly | monthly
+    sphere: str
+    lastRunTime: Optional[str] = None
+    lastRunStatus: Optional[str] = None
+    skills: Optional[List[str]] = []
+    can_run: Optional[bool] = True
+
+
+class Run(BaseModel):
+    id: str
+    type: str  # "skill" | "mission"
+    name: str
+    sphere: str
+    status: str  # "queued" | "running" | "succeeded" | "failed" | "cancelled"
+    startTime: str
+    endTime: Optional[str] = None
+    duration: Optional[int] = None  # seconds
+    triggerSource: str  # "manual" | "scheduled" | "api"
+    skillId: Optional[str] = None
+    missionId: Optional[str] = None
+    reportId: Optional[str] = None
+    error: Optional[str] = None
+
+
+class Report(BaseModel):
+    id: str
+    title: str
+    type: str  # "run" | "diagnostic" | "infra" | "daily" | "nyo"
+    sphere: str
+    content: str
+    contentType: str  # "markdown" | "json" | "text" | "html"
+    relatedSkillId: Optional[str] = None
+    relatedMissionId: Optional[str] = None
+    relatedRunId: Optional[str] = None
+    createdAt: str
+
+
+class Artifact(BaseModel):
+    id: str
+    name: str
+    path: str
+    type: str
+    size: int
+    createdAt: str
+    runId: str
+    sphere: str
+    url: Optional[str] = None
+
+
+class SystemStatus(BaseModel):
+    status: str
+    subsystems: Dict[str, str]
+
+
+# ---------- Orunmila state models ----------
+
+class KeyLevels(BaseModel):
+    resistance: List[float]
+    support: List[float]
+
+
+class TechnicalSnapshot(BaseModel):
+    d1: str
+    h4: str
+    h1: str
+    m15: str
+
+
+class InstitutionalZone(BaseModel):
+    level: float
+    type: str  # "supply" | "demand"
+    strength: str  # "strong" | "medium" | "weak"
+
+
+class TradeIdea(BaseModel):
+    id: Optional[str] = None
+    direction: Optional[str] = None  # "long" | "short"
+    entry: Optional[float] = None
+    stop: Optional[float] = None
+    target: Optional[float] = None
+    rationale: Optional[str] = None
+
+
+class DailyState(BaseModel):
+    date: str
+    regime: str
+    stance: str
+    confidence: int
+    keyLevels: KeyLevels
+    technical: TechnicalSnapshot
+    institutionalZones: Optional[List[InstitutionalZone]] = []
+    tradeIdeas: Optional[List[TradeIdea]] = []
+
+
+class CyclePerformance(BaseModel):
+    trades: int
+    wins: int
+    losses: int
+    pnl: float
+
+
+class Cycle4WState(BaseModel):
+    startDate: str
+    endDate: str
+    stance: str
+    lessons: List[str]
+    performance: Optional[CyclePerformance] = None
+
+
+class StructuralState(BaseModel):
+    longTerm: str
+    majorLevels: List[float]
+    notes: str
+
+
+# ---------- Utility payloads ----------
+
+class RunRequest(BaseModel):
+    """Optional body for POST /run if you want extra flags later."""
+    triggerSource: str = Field(default="manual")
+
+
+# ---------- Chat models ----------
+
+class ChatSession(BaseModel):
+    id: str
+    title: str
+    sphere: str  # "forge" | "orunmila"
+    created_at: str
+    updated_at: str
+    pinned: bool = False
+    context: Dict[str, Any] = {}
+
+
+class ChatMessage(BaseModel):
+    id: str
+    session_id: str
+    role: str  # "user" | "assistant" | "system" | "tool"
+    content: str
+    created_at: str
+    meta: Dict[str, Any] = {}
+
+
+# ---------- Mission Report models ----------
+
+class MissionReport(BaseModel):
+    id: str
+    mission_id: str
+    sphere: str  # "forge" | "orunmila"
+    generated_at: str
+    timeframe_start: Optional[str] = None
+    timeframe_end: Optional[str] = None
+    status: str = "ok"  # "ok" | "warning" | "error"
+    stats: Dict[str, Any] = {}
+    highlights: List[str] = []
+    recommendations: List[str] = []
+    raw_markdown: str = ""
+    generated_by: str = "system"
+
+
+# ---------- Job models ----------
+
+class Job(BaseModel):
+    id: str
+    name: str
+    status: str  # "pending" | "running" | "succeeded" | "failed"
+    created_at: str
+    updated_at: str
+    sphere: str  # "forge" | "orunmila"
+    error_message: Optional[str] = None

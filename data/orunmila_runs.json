@@ -1,0 +1,28 @@
+[
+  {
+    "id": "xau-run-1733900800",
+    "type": "mission",
+    "name": "Daily XAU Intelligence",
+    "missionId": "xau-mission-1",
+    "sphere": "orunmila",
+    "status": "succeeded",
+    "startTime": "2025-12-10T06:00:00Z",
+    "endTime": "2025-12-10T06:15:00Z",
+    "duration": 900,
+    "triggerSource": "scheduled",
+    "reportId": "xau-report-1"
+  },
+  {
+    "id": "xau-run-1733904400",
+    "type": "skill",
+    "name": "Technical Analysis",
+    "skillId": "xau-skill-2",
+    "sphere": "orunmila",
+    "status": "succeeded",
+    "startTime": "2025-12-10T08:00:00Z",
+    "endTime": "2025-12-10T08:05:00Z",
+    "duration": 300,
+    "triggerSource": "manual",
+    "reportId": "xau-report-2"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "status": "ok",
+  "subsystems": {
+    "runtime": "ok",
+    "storage": "ok",
+    "networking": "ok",
+    "scheduler": "ok"
+  }
+}

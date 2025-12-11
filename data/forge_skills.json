@@ -1,0 +1,54 @@
+[
+  {
+    "id": "skill-1",
+    "name": "CI Pipeline Validator",
+    "description": "Validates CI/CD pipeline configuration and checks for security issues",
+    "type": "runtime",
+    "sphere": "forge",
+    "lastRunTime": "2025-12-09T10:00:00Z",
+    "lastRunStatus": "succeeded",
+    "tags": ["ci", "validation", "security"],
+    "config": {},
+    "can_run": true,
+    "can_edit_config": false
+  },
+  {
+    "id": "skill-2",
+    "name": "Infrastructure Health Check",
+    "description": "Monitors and reports on infrastructure component health",
+    "type": "infra",
+    "sphere": "forge",
+    "lastRunTime": "2025-12-09T11:00:00Z",
+    "lastRunStatus": "running",
+    "tags": ["monitoring", "health", "infra"],
+    "config": {},
+    "can_run": true,
+    "can_edit_config": true
+  },
+  {
+    "id": "skill-3",
+    "name": "Deployment Tracker",
+    "description": "Tracks and logs deployment activities",
+    "type": "runtime",
+    "sphere": "forge",
+    "lastRunTime": "2025-12-08T15:30:00Z",
+    "lastRunStatus": "succeeded",
+    "tags": ["deployment", "tracking"],
+    "config": {},
+    "can_run": true,
+    "can_edit_config": false
+  },
+  {
+    "id": "skill-4",
+    "name": "Log Aggregator",
+    "description": "Aggregates logs from multiple services",
+    "type": "ingestion",
+    "sphere": "forge",
+    "lastRunTime": null,
+    "lastRunStatus": null,
+    "tags": ["logs", "aggregation"],
+    "config": {},
+    "can_run": true,
+    "can_edit_config": true
+  }
+]
