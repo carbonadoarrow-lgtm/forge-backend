@@ -1,0 +1,13 @@
+{
+  "config_name": "leto_blrm_v0_1",
+  "num_rows": 188,
+  "num_scenarios": 5,
+  "seed": 42,
+  "mean_avg_score": 142.5519,
+  "mean_p_hit": 0.8723,
+  "total_runtime_sec": 0.0019,
+  "avg_scenario_runtime_sec": 0.0004,
+  "max_scenario_runtime_sec": 0.0004,
+  "best_scenario_id": 3,
+  "best_avg_score": 142.8157
+}
