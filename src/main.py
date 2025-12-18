@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import settings
-from .routers import forge, orunmila, chat, console, console_chat
+from .routers import forge, orunmila, chat, console, console_chat, orunmila_events
 
 app = FastAPI(
     title="Forge Console API",
@@ -25,6 +25,7 @@ app.add_middleware(
 # Include routers
 app.include_router(forge.router, prefix=settings.api_prefix)
 app.include_router(orunmila.router, prefix=settings.api_prefix)
+app.include_router(orunmila_events.router, prefix=settings.api_prefix)
 app.include_router(chat.router, prefix=settings.api_prefix)
 app.include_router(console.router, prefix=settings.api_prefix)
 app.include_router(console_chat.router, prefix=settings.api_prefix)

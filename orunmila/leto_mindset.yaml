@@ -1,0 +1,125 @@
+# Leto Mindset Configuration v0.1
+# Orunmila Integration for Advanced LLM Runtime Management
+
+# Events System
+events:
+  enabled: true
+  store_path: "data/orunmila/events.jsonl"
+  routing_policy: "default"  # or path to custom policy file
+
+# Presence Tracking
+presence:
+  enabled: true
+  activity_log_path: "data/orunmila/presence_activity.json"
+  state_path: "data/orunmila/presence_state.json"
+  warn_threshold_hours: 24
+  takeover_threshold_hours: 48
+  check_interval_minutes: 60
+  business_hours_only: true
+  exclude_weekends: true
+  timezone: "UTC"
+
+# Communication Guard (Taylor Mode)
+communication_guard:
+  enabled: true
+  strict_mode: false  # Set to true for critical operations
+  forbidden_phrases:
+    - "I understand"
+    - "I see"
+    - "I feel"
+    - "I believe"
+    - "I'm sorry"
+    - "Apologies"
+    - "I'm confident"
+  required_slots:
+    - "observation"
+    - "implication"
+    - "constraints"
+    - "choice_set"
+    - "meta_clarifier"
+  block_on_violation: true
+
+# Corridors (Dynamic Constraints)
+corridors:
+  enabled: true
+  config_path: "data/orunmila/corridors.json"
+  sync_with_presence: true
+
+  # Level-specific configs
+  normal:
+    max_parallel_tasks: 10
+    token_budget: 200000
+    max_tool_calls: 50
+    require_approval: false
+    taylor_mode_strict: false
+
+  warn:
+    max_parallel_tasks: 5
+    token_budget: 100000
+    max_tool_calls: 25
+    require_approval: false
+    taylor_mode_strict: true
+
+  takeover:
+    max_parallel_tasks: 1
+    token_budget: 50000
+    max_tool_calls: 10
+    require_approval: true
+    taylor_mode_strict: true
+
+# Neuroplasticity
+neuroplasticity:
+  enabled: true
+  episodes_log_path: "data/orunmila/episodes.jsonl"
+  intents_log_path: "data/orunmila/intents.jsonl"
+  auto_apply_threshold: 0.8
+  distill_interval_hours: 24
+
+  # Episode types to track
+  track_episode_types:
+    - "chat"
+    - "code_review"
+    - "correction"
+    - "preference"
+
+  # Auto-application settings
+  auto_apply_enabled: false  # Set to true for production
+  backup_on_apply: true
+  require_approval: true
+
+# Telegram Integration
+telegram:
+  enabled: false  # Set to true when ready
+  bot_token: ""  # Set via environment variable ORUNMILA_TELEGRAM_BOT_TOKEN
+  chat_id: ""    # Set via environment variable ORUNMILA_TELEGRAM_CHAT_ID
+
+  # Routing rules
+  send_on_severity:
+    - "error"
+    - "critical"
+  send_on_event_types:
+    - "presence.warn_threshold"
+    - "presence.takeover_threshold"
+    - "chat.taylor_violation"
+
+# Return Brief
+return_brief:
+  enabled: true
+  output_path: "data/orunmila/return_briefs"
+  auto_generate_on_takeover: true
+  include_sections:
+    - "presence_status"
+    - "recent_events"
+    - "applied_intents"
+    - "corridor_status"
+    - "recommendations"
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG/INFO/WARNING/ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_path: "data/orunmila/orunmila.log"
+
+# Meta
+version: "0.1.0"
+last_updated: "2025-12-14"

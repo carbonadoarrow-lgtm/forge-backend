@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     api_prefix: str = "/api"
     backend_mode: str = "file"  # file | sandbox | prod
     data_dir: str = "data"
-    cors_origins: List[str] = ["http://localhost:3000"]
+    cors_origins: List[str] = ["http://localhost:3000", "http://localhost:3001", "*"]
     environment: str = "local"  # local | dev | prod
 
     class Config:
