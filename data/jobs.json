@@ -1,0 +1,74 @@
+{
+  "jobs": [
+    {
+      "id": "job_001",
+      "title": "Senior Python Developer",
+      "description": "Develop and maintain backend services using Python and FastAPI. Work on job matching algorithms and data processing pipelines.",
+      "company": "TechCorp Inc.",
+      "location": "San Francisco, CA",
+      "salary_range": "$120,000 - $160,000",
+      "job_type": "Full-time",
+      "experience_level": "Senior",
+      "skills_required": ["Python", "FastAPI", "Docker", "AWS", "PostgreSQL", "REST APIs"],
+      "posted_date": "2024-01-15T10:30:00Z",
+      "created_at": "2024-01-15T10:30:00Z",
+      "updated_at": "2024-01-15T10:30:00Z"
+    },
+    {
+      "id": "job_002",
+      "title": "Machine Learning Engineer",
+      "description": "Build and deploy machine learning models for job recommendation systems. Work with NLP and recommendation algorithms.",
+      "company": "AI Solutions Ltd.",
+      "location": "Remote",
+      "salary_range": "$100,000 - $140,000",
+      "job_type": "Full-time",
+      "experience_level": "Mid-Level",
+      "skills_required": ["Python", "TensorFlow", "PyTorch", "Scikit-learn", "NLP", "Docker"],
+      "posted_date": "2024-01-16T14:45:00Z",
+      "created_at": "2024-01-16T14:45:00Z",
+      "updated_at": "2024-01-16T14:45:00Z"
+    },
+    {
+      "id": "job_003",
+      "title": "DevOps Engineer",
+      "description": "Manage cloud infrastructure and CI/CD pipelines. Ensure high availability and scalability of backend services.",
+      "company": "CloudSystems LLC",
+      "location": "New York, NY",
+      "salary_range": "$110,000 - $150,000",
+      "job_type": "Full-time",
+      "experience_level": "Mid-Level",
+      "skills_required": ["AWS", "Docker", "Kubernetes", "Terraform", "CI/CD", "Linux"],
+      "posted_date": "2024-01-17T09:15:00Z",
+      "created_at": "2024-01-17T09:15:00Z",
+      "updated_at": "2024-01-17T09:15:00Z"
+    },
+    {
+      "id": "job_004",
+      "title": "Frontend Developer",
+      "description": "Build responsive web interfaces for job search and candidate management platforms.",
+      "company": "WebTech Solutions",
+      "location": "Austin, TX",
+      "salary_range": "$90,000 - $130,000",
+      "job_type": "Full-time",
+      "experience_level": "Mid-Level",
+      "skills_required": ["React", "TypeScript", "CSS", "JavaScript", "Redux", "Webpack"],
+      "posted_date": "2024-01-18T11:20:00Z",
+      "created_at": "2024-01-18T11:20:00Z",
+      "updated_at": "2024-01-18T11:20:00Z"
+    },
+    {
+      "id": "job_005",
+      "title": "Data Analyst",
+      "description": "Analyze job market trends and provide insights for product development. Work with large datasets and visualization tools.",
+      "company": "DataInsights Corp.",
+      "location": "Chicago, IL",
+      "salary_range": "$80,000 - $110,000",
+      "job_type": "Full-time",
+      "experience_level": "Entry-Level",
+      "skills_required": ["Python", "SQL", "Pandas", "Tableau", "Excel", "Statistics"],
+      "posted_date": "2024-01-19T13:10:00Z",
+      "created_at": "2024-01-19T13:10:00Z",
+      "updated_at": "2024-01-19T13:10:00Z"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "app_name": "Forge Backend",
+  "version": "1.0.0",
+  "description": "Job management and LETO-BLRM integration backend",
+  "features": [
+    "Job CRUD operations",
+    "Job search and filtering",
+    "LETO-BLRM integration",
+    "Candidate-job matching",
+    "Skill analysis",
+    "REST API"
+  ],
+  "default_settings": {
+    "api_prefix": "/api",
+    "cors_origins": ["*"],
+    "data_storage": "file",
+    "pagination_limit": 50
+  },
+  "supported_job_types": [
+    "Full-time",
+    "Part-time",
+    "Contract",
+    "Internship",
+    "Remote",
+    "Hybrid"
+  ],
+  "supported_experience_levels": [
+    "Entry-Level",
+    "Mid-Level",
+    "Senior",
+    "Lead",
+    "Principal"
+  ]
+}
