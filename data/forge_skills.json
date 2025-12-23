@@ -1,0 +1,82 @@
+[
+  {
+    "id": "skill_001",
+    "name": "Python",
+    "category": "Programming Language",
+    "level": "Advanced",
+    "description": "Python programming language for backend development",
+    "tags": ["backend", "scripting", "data-science"]
+  },
+  {
+    "id": "skill_002",
+    "name": "FastAPI",
+    "category": "Web Framework",
+    "level": "Intermediate",
+    "description": "Modern, fast web framework for building APIs with Python",
+    "tags": ["api", "web", "async"]
+  },
+  {
+    "id": "skill_003",
+    "name": "Docker",
+    "category": "Containerization",
+    "level": "Intermediate",
+    "description": "Container platform for developing, shipping, and running applications",
+    "tags": ["devops", "containers", "deployment"]
+  },
+  {
+    "id": "skill_004",
+    "name": "AWS",
+    "category": "Cloud Platform",
+    "level": "Beginner",
+    "description": "Amazon Web Services cloud computing platform",
+    "tags": ["cloud", "infrastructure", "devops"]
+  },
+  {
+    "id": "skill_005",
+    "name": "REST APIs",
+    "category": "API Design",
+    "level": "Intermediate",
+    "description": "Design and implementation of RESTful APIs",
+    "tags": ["api", "web", "architecture"]
+  },
+  {
+    "id": "skill_006",
+    "name": "Data Analysis",
+    "category": "Data Science",
+    "level": "Intermediate",
+    "description": "Analyzing and interpreting complex data sets",
+    "tags": ["data", "analytics", "statistics"]
+  },
+  {
+    "id": "skill_007",
+    "name": "Git",
+    "category": "Version Control",
+    "level": "Advanced",
+    "description": "Distributed version control system",
+    "tags": ["devops", "collaboration", "version-control"]
+  },
+  {
+    "id": "skill_008",
+    "name": "SQL",
+    "category": "Database",
+    "level": "Intermediate",
+    "description": "Structured Query Language for database management",
+    "tags": ["database", "query", "data"]
+  },
+  {
+    "id": "skill_009",
+    "name": "JavaScript",
+    "category": "Programming Language",
+    "level": "Beginner",
+    "description": "Programming language for web development",
+    "tags": ["frontend", "web", "scripting"]
+  },
+  {
+    "id": "skill_010",
+    "name": "CI/CD",
+    "category": "DevOps",
+    "level": "Intermediate",
+    "description": "Continuous Integration and Continuous Deployment",
+    "tags": ["devops", "automation", "deployment"]
+  }
+]

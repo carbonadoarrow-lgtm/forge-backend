@@ -1,0 +1,44 @@
+{
+  "date": "2024-01-01",
+  "status": "operational",
+  "active_analyses": 5,
+  "completed_analyses": 42,
+  "average_processing_time_ms": 1250,
+  "success_rate": 98.7,
+  "system_load": {
+    "cpu_percent": 23.5,
+    "memory_percent": 45.2,
+    "disk_percent": 12.8
+  },
+  "recent_activities": [
+    {
+      "id": "act_001",
+      "type": "job_analysis",
+      "timestamp": "2024-01-01T10:30:00Z",
+      "duration_ms": 1200,
+      "status": "completed"
+    },
+    {
+      "id": "act_002",
+      "type": "candidate_matching",
+      "timestamp": "2024-01-01T11:15:00Z",
+      "duration_ms": 850,
+      "status": "completed"
+    },
+    {
+      "id": "act_003",
+      "type": "skill_extraction",
+      "timestamp": "2024-01-01T12:00:00Z",
+      "duration_ms": 650,
+      "status": "completed"
+    }
+  ],
+  "metrics": {
+    "total_analyses_today": 15,
+    "total_matches_today": 8,
+    "average_match_score": 78.5,
+    "top_skills_identified": ["Python", "AWS", "Docker", "FastAPI", "SQL"]
+  },
+  "alerts": [],
+  "maintenance_scheduled": false
+}

@@ -78,3 +78,69 @@ async def health_check():
         "service": "forge",
         "timestamp": "2024-01-01T00:00:00Z"
     }
+
+
+@router.get("/skills", response_model=dict)
+async def get_forge_skills():
+    """Get all forge skills."""
+    try:
+        import json
+        import os
+        data_dir = os.getenv("DATA_DIR", "data")
+        skills_file = os.path.join(data_dir, "forge_skills.json")
+        if os.path.exists(skills_file):
+            with open(skills_file, "r") as f:
+                skills = json.load(f)
+            return {"skills": skills, "count": len(skills)}
+        else:
+            return {"skills": [], "count": 0, "message": "Skills file not found"}
+    except Exception as e:
+        return {"skills": [], "count": 0, "error": str(e)}
+
+
+@router.get("/missions", response_model=dict)
+async def get_forge_missions():
+    """Get all forge missions."""
+    try:
+        import json
+        import os
+        data_dir = os.getenv("DATA_DIR", "data")
+        missions_file = os.path.join(data_dir, "forge_missions.json")
+        if os.path.exists(missions_file):
+            with open(missions_file, "r") as f:
+                missions = json.load(f)
+            return {"missions": missions, "count": len(missions)}
+        else:
+            return {"missions": [], "count": 0, "message": "Missions file not found"}
+    except Exception as e:
+        return {"missions": [], "count": 0, "error": str(e)}
+
+
+@router.get("/info", response_model=dict)
+async def get_forge_info():
+    """Get forge system information."""
+    try:
+        import json
+        import os
+        data_dir = os.getenv("DATA_DIR", "data")
+        status_file = os.path.join(data_dir, "forge_system_status.json")
+        if os.path.exists(status_file):
+            with open(status_file, "r") as f:
+                status_data = json.load(f)
+        else:
+            status_data = {}
+        
+        return {
+            "service": "forge",
+            "version": "1.0.0",
+            "status": "operational",
+            "endpoints": ["/jobs", "/skills", "/missions", "/health"],
+            "system_status": status_data
+        }
+    except Exception as e:
+        return {
+            "service": "forge",
+            "version": "1.0.0",
+            "status": "error",
+            "error": str(e)
+        }

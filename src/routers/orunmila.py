@@ -132,3 +132,38 @@ async def get_service_status():
             "Salary estimation"
         ]
     }
+
+
+@router.get("/state/daily", response_model=dict)
+async def get_daily_state():
+    """Get daily state for Orunmila."""
+    try:
+        import json
+        import os
+        data_dir = os.getenv("DATA_DIR", "data")
+        state_file = os.path.join(data_dir, "orunmila_daily_state.json")
+        if os.path.exists(state_file):
+            with open(state_file, "r") as f:
+                state_data = json.load(f)
+            return {
+                "service": "orunmila",
+                "state_type": "daily",
+                "data": state_data,
+                "timestamp": "2024-01-01T00:00:00Z"
+            }
+        else:
+            return {
+                "service": "orunmila",
+                "state_type": "daily",
+                "data": {},
+                "message": "Daily state file not found",
+                "timestamp": "2024-01-01T00:00:00Z"
+            }
+    except Exception as e:
+        return {
+            "service": "orunmila",
+            "state_type": "daily",
+            "data": {},
+            "error": str(e),
+            "timestamp": "2024-01-01T00:00:00Z"
+        }

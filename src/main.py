@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import settings
 from .routers import forge_router, orunmila_router
+from forge.autonomy.cockpit_api import router as autonomy_router
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -23,6 +24,7 @@ app.add_middleware(
 # Include routers
 app.include_router(forge_router, prefix=settings.API_PREFIX)
 app.include_router(orunmila_router, prefix=settings.API_PREFIX)
+app.include_router(autonomy_router)
 
 @app.get("/")
 async def root():
@@ -30,10 +32,11 @@ async def root():
         "message": "Forge Backend v1 with Jobs + LETO-BLRM",
         "version": settings.APP_VERSION,
         "docs": "/docs",
-        "health": "/health"
+        "health": "/healthz"
     }
 
 @app.get("/health")
+@app.get("/healthz")
 async def health():
     return {
         "status": "healthy",
