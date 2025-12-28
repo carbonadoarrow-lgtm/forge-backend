@@ -51,14 +51,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd forge-backend
           python -m pip install --upgrade pip
           pip install mypy
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run mypy
         run: |
-          cd forge-backend
           mypy src/ forge/ || true  # Don't fail yet, incremental adoption
 
   # Phase 3: Linting
@@ -79,12 +77,10 @@ jobs:
 
       - name: Run ruff
         run: |
-          cd forge-backend
           ruff check src/ forge/ || true
 
       - name: Check formatting
         run: |
-          cd forge-backend
           black --check src/ forge/ || true
           isort --check src/ forge/ || true
 
@@ -104,7 +100,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd forge-backend
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install pytest pytest-cov pytest-asyncio
@@ -113,23 +108,20 @@ jobs:
         env:
           FORGE_DB_PATH: ${{ runner.temp }}/forge_ci.db
         run: |
-          cd forge-backend
           python scripts/db/apply_migrations.py
 
       - name: Cockpit v2 operational proof (sqlite)
         env:
           FORGE_DB_PATH: ${{ runner.temp }}/forge_ci.db
         run: |
-          cd forge-backend
           python scripts/prove_cockpit_v2_operational.py
 
       - name: Run canonical test suite (D.8 + D.11 + D.12-A)
         run: |
-          cd forge-backend
           python -m pytest -q tests/test_acceptance_v2_direct.py tests/test_d11_failure_explicitness.py tests/test_d12a_read_endpoints.py --cov=src --cov=forge --cov-report=term --cov-report=xml
 
       - name: Upload coverage
         uses: codecov/codecov-action@v4
         with:
-          files: ./forge-backend/coverage.xml
+          files: ./coverage.xml
         continue-on-error: true  # Don't fail if codecov upload fails
