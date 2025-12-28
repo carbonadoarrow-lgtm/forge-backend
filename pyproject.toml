@@ -1,0 +1,84 @@
+# Standard pyproject.toml for forge-backend
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "forge-backend"
+version = "0.1.0"
+description = "Forge Backend API"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi==0.104.1",
+    "uvicorn[standard]==0.24.0",
+    "pydantic==2.9.0",
+    "pydantic-settings==2.5.0",
+    "python-dotenv==1.0.1",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*", "forge*"]
+exclude = ["tests*", "docs*", "examples*", "scripts*"]
+
+# pytest configuration
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--cov",
+    "--cov-report=term-missing",
+    "--cov-report=xml",
+    "-q",
+]
+
+# coverage configuration
+[tool.coverage.run]
+source = ["src", "forge"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/.venv/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+# mypy configuration
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+# ruff configuration
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = []
+
+# black configuration
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+# isort configuration
+[tool.isort]
+profile = "black"
+line_length = 100
