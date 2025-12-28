@@ -6,7 +6,7 @@ import os
 import json
 from typing import List, Optional
 from pydantic_settings import BaseSettings
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, ConfigDict
 
 
 class Settings(BaseSettings):
@@ -30,16 +30,60 @@ class Settings(BaseSettings):
     DATA_DIR: str = "data"
     FORGE_BACKEND_MODE: str = "file"  # "file" or "database"
     
+    # Database
+    DATABASE_URL: str = Field(default="sqlite:///./forge.db")
+    FORGE_DB_PATH: Optional[str] = None  # Override database path if specified
+    DB_TYPE: str = "sqlite"  # "sqlite" or "postgresql"
+
+    # Build/provenance (optional; safe defaults)
+    BUILD_SHA: str = "unknown"
+    BUILD_TIME_UTC: str = "unknown"
+
+    # Background worker gates (stabilization-only)
+    # Default OFF. Must be explicitly enabled.
+    AUTONOMY_V2_WORKER_ENABLED: bool = False
+    # Uvicorn/Gunicorn can spawn multiple processes. Only one should run the background worker.
+    # If set, worker will run only in the process where os.getpid() == AUTONOMY_V2_WORKER_PID.
+    AUTONOMY_V2_WORKER_PID: int = 0
+    # Interval between background ticks (seconds)
+    AUTONOMY_V2_WORKER_TICK_INTERVAL_SECONDS: int = 3
+
+    # Which lane/env the background worker should service (stabilization default)
+    AUTONOMY_V2_WORKER_ENV: str = "local"
+    AUTONOMY_V2_WORKER_LANE: str = "default"
+
+    # Admin auth (stabilization-only): required for manual tick endpoints
+    ADMIN_TOKEN: str = ""
+    
     # Security
     SECRET_KEY: str = "your-secret-key-here-change-in-production"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
-    
+
     def __init__(self, **kwargs):
         # First, let Pydantic do its normal initialization
         super().__init__(**kwargs)
-        
+
+        # Override DATABASE_URL if FORGE_DB_PATH is specified
+        if self.FORGE_DB_PATH:
+            self.DATABASE_URL = f"sqlite:///{self.FORGE_DB_PATH}"
+
+        # Validate SECRET_KEY was changed in production
+        self._validate_secret_key()
+
         # Parse CORS origins from environment variables
         self._parse_cors_origins()
+
+    def _validate_secret_key(self):
+        """Ensure SECRET_KEY was changed from default value."""
+        if self.SECRET_KEY == "your-secret-key-here-change-in-production":
+            import os
+            if os.getenv("FORGE_ENV", "development") == "production":
+                raise ValueError(
+                    "SECRET_KEY must be changed in production! "
+                    "Set SECRET_KEY environment variable to a secure random value."
+                )
+            # In development, warn but don't fail
+            print("WARNING: Using default SECRET_KEY. This is insecure for production!")
     
     def _parse_cors_origins(self):
         """Parse CORS origins from environment variables."""
@@ -92,10 +136,12 @@ class Settings(BaseSettings):
     def CORS_ORIGINS(self, value: List[str]):
         """Set CORS origins."""
         self._cors_origins = value
-    
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+
+    model_config = ConfigDict(
+        env_file=".env",
+        case_sensitive=True,
+        extra="ignore"  # Allow extra env vars without raising validation errors
+    )
 
 
 # Create global settings instance

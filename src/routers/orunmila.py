@@ -134,6 +134,24 @@ async def get_service_status():
     }
 
 
+def _validate_safe_path(data_dir: str, filename: str) -> str:
+    """
+    Validate that the resulting path is within the allowed data directory.
+    Prevents path traversal attacks.
+    """
+    import os
+    # Get absolute path of data directory
+    abs_data_dir = os.path.abspath(data_dir)
+    # Construct the full path
+    file_path = os.path.join(abs_data_dir, filename)
+    # Get absolute path and resolve any ../ or symlinks
+    abs_file_path = os.path.abspath(os.path.realpath(file_path))
+    # Ensure the file is within the data directory
+    if not abs_file_path.startswith(abs_data_dir + os.sep):
+        raise ValueError(f"Path traversal detected: {filename}")
+    return abs_file_path
+
+
 @router.get("/state/daily", response_model=dict)
 async def get_daily_state():
     """Get daily state for Orunmila."""
@@ -141,7 +159,7 @@ async def get_daily_state():
         import json
         import os
         data_dir = os.getenv("DATA_DIR", "data")
-        state_file = os.path.join(data_dir, "orunmila_daily_state.json")
+        state_file = _validate_safe_path(data_dir, "orunmila_daily_state.json")
         if os.path.exists(state_file):
             with open(state_file, "r") as f:
                 state_data = json.load(f)

@@ -80,6 +80,24 @@ async def health_check():
     }
 
 
+def _validate_safe_path(data_dir: str, filename: str) -> str:
+    """
+    Validate that the resulting path is within the allowed data directory.
+    Prevents path traversal attacks.
+    """
+    import os
+    # Get absolute path of data directory
+    abs_data_dir = os.path.abspath(data_dir)
+    # Construct the full path
+    file_path = os.path.join(abs_data_dir, filename)
+    # Get absolute path and resolve any ../ or symlinks
+    abs_file_path = os.path.abspath(os.path.realpath(file_path))
+    # Ensure the file is within the data directory
+    if not abs_file_path.startswith(abs_data_dir + os.sep):
+        raise ValueError(f"Path traversal detected: {filename}")
+    return abs_file_path
+
+
 @router.get("/skills", response_model=dict)
 async def get_forge_skills():
     """Get all forge skills."""
@@ -87,7 +105,7 @@ async def get_forge_skills():
         import json
         import os
         data_dir = os.getenv("DATA_DIR", "data")
-        skills_file = os.path.join(data_dir, "forge_skills.json")
+        skills_file = _validate_safe_path(data_dir, "forge_skills.json")
         if os.path.exists(skills_file):
             with open(skills_file, "r") as f:
                 skills = json.load(f)
@@ -105,7 +123,7 @@ async def get_forge_missions():
         import json
         import os
         data_dir = os.getenv("DATA_DIR", "data")
-        missions_file = os.path.join(data_dir, "forge_missions.json")
+        missions_file = _validate_safe_path(data_dir, "forge_missions.json")
         if os.path.exists(missions_file):
             with open(missions_file, "r") as f:
                 missions = json.load(f)
@@ -123,7 +141,7 @@ async def get_forge_info():
         import json
         import os
         data_dir = os.getenv("DATA_DIR", "data")
-        status_file = os.path.join(data_dir, "forge_system_status.json")
+        status_file = _validate_safe_path(data_dir, "forge_system_status.json")
         if os.path.exists(status_file):
             with open(status_file, "r") as f:
                 status_data = json.load(f)

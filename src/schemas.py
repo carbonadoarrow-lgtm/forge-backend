@@ -4,7 +4,7 @@ Pydantic schemas for data validation in the Forge Backend.
 
 from datetime import datetime
 from typing import List, Optional, Dict, Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class JobBase(BaseModel):
@@ -42,9 +42,8 @@ class JobResponse(JobBase):
     id: str = Field(..., description="Unique job ID")
     created_at: datetime = Field(..., description="Creation timestamp")
     updated_at: datetime = Field(..., description="Last update timestamp")
-    
-    class Config:
-        from_attributes = True
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class HealthCheck(BaseModel):
