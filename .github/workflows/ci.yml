@@ -34,7 +34,6 @@ jobs:
 
       - name: Check dependencies for vulnerabilities
         run: |
-          cd forge-backend
           if [ -f requirements.txt ]; then pip-audit -r requirements.txt || true; fi
           if [ -f requirements.txt ]; then safety check -r requirements.txt || true; fi
 
