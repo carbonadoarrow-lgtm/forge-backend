@@ -1,0 +1,5 @@
+# Gitleaks ignore file
+# False positives - documentation examples with placeholder tokens
+
+# D11_MANUAL_VERIFICATION.md - Example curl commands with demo tokens
+e8653060e7dadf731e14df79270f1921dc6f165d:D11_MANUAL_VERIFICATION.md:curl-auth-header:61
