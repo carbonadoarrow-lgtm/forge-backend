@@ -22,6 +22,8 @@ from src.config import settings
 from src.routers import forge_router, orunmila_router
 from forge.autonomy.cockpit_api import router as cockpit_router
 from forge.autonomy.api_v2 import router as autonomy_v2_router
+from src.routers.autonomy_v2_demo import router as autonomy_v2_demo_router
+from src.routers.autonomy_v2_ops import router as autonomy_v2_ops_router
 
 # Import migration script
 from scripts.db.apply_migrations import main as apply_migrations
@@ -148,6 +150,8 @@ def create_app() -> FastAPI:
     app.include_router(orunmila_router, prefix=settings.API_PREFIX)
     app.include_router(cockpit_router)
     app.include_router(autonomy_v2_router)
+    app.include_router(autonomy_v2_demo_router)
+    app.include_router(autonomy_v2_ops_router)
 
     async def _background_worker_loop():
         """
