@@ -38,6 +38,9 @@ class GraphTickV2:
             state["started_at"] = _now()
             state["status"] = "running"
             self.bus.publish(run_id, "RUN_STARTED", {"run_id": run_id})
+            
+            # Patch 2: Write initial artifacts immediately
+            self._write_initial_artifacts(run_id, state)
 
         graph: Dict[str, Any] = state.get("run_graph") or {}
         steps: Dict[str, Any] = graph.get("steps") or {}
@@ -108,6 +111,24 @@ class GraphTickV2:
 
         self.store.put_run_state_v2(run_id, state)
         return state
+
+    def _write_initial_artifacts(self, run_id: str, state: Dict[str, Any]) -> None:
+        """
+        Patch 2: Write initial state.json and events.jsonl immediately on run start.
+        This ensures CI always has files even if the run gets stuck.
+        """
+        # Write initial state.json
+        self.artifact_writer.write_artifact(
+            run_id,
+            "state.json",
+            state,
+            format="json"
+        )
+        
+        # Write empty events.jsonl
+        events_path = self.artifact_writer.base_dir / run_id / "events.jsonl"
+        events_path.parent.mkdir(parents=True, exist_ok=True)
+        events_path.write_text("")  # Create empty file
 
 
 def _select_next_step_id(state: Dict[str, Any], graph: Dict[str, Any]) -> Optional[str]:

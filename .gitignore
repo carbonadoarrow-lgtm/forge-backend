@@ -73,4 +73,8 @@ docker-compose.override.yml
 temp/
 tmp/
 
+# Forge runtime artifacts
+.forge/
+forge.db
+
 # Note: data/ and scripts/ folders are NOT ignored - they should be tracked

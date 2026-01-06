@@ -12,6 +12,12 @@ import os
 
 router = APIRouter(prefix="/api/autonomy/v2", tags=["autonomy-v2"])
 
+# Helper function for timestamps
+def _now() -> str:
+    """Get current UTC timestamp in ISO format."""
+    import datetime
+    return datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
 # Admin token from environment
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
 
@@ -277,6 +283,7 @@ async def tick_once(
     Manually trigger a single worker tick (admin only).
 
     D.11: Returns explicit idle outcome when no runnable runs found.
+    D.12: Writes diagnostics when max ticks is hit.
     """
     from forge.app import _audit
 
@@ -284,9 +291,13 @@ async def tick_once(
         worker = request.app.state.worker_v2
         SchedulerCaps = request.app.state.SchedulerCaps
 
+        # Patch 4: Allow environment variable override for max ticks
+        import os
+        default_max_ticks = int(os.getenv("FORGE_MAX_TICKS", "10"))
+
         # Build caps object
         caps = SchedulerCaps(
-            max_total_ticks_per_invocation=payload.caps.get("max_total_ticks_per_invocation", 10),
+            max_total_ticks_per_invocation=payload.caps.get("max_total_ticks_per_invocation", default_max_ticks),
             max_ticks_per_run_per_invocation=payload.caps.get("max_ticks_per_run_per_invocation", 10),
             daily_tick_cap=payload.caps.get("daily_tick_cap", 200)
         )
@@ -334,6 +345,27 @@ async def tick_once(
             "events_added": result.get("events_added", 0),
             "message": f"Tick completed for {payload.env}/{payload.lane}"
         }
+    except RuntimeError as e:
+        # Patch 3: Catch invocation_tick_cap_reached and write diagnostics
+        if "invocation_tick_cap_reached" in str(e):
+            await _write_diagnostics_on_tick_cap(
+                request, payload, payload.env, payload.lane, caps.max_total_ticks_per_invocation
+            )
+            _audit(
+                action="tick_once",
+                result="error",
+                actor_id=payload.owner_id,
+                actor_role="admin",
+                payload={"env": payload.env, "lane": payload.lane},
+                error={"code": "MAX_TICKS_REACHED", "message": str(e)}
+            )
+            raise HTTPException(
+                status_code=500,
+                detail=f"Max ticks ({caps.max_total_ticks_per_invocation}) reached. Diagnostics written to .forge/"
+            )
+        else:
+            # Other runtime errors
+            raise
     except Exception as e:
         # D.11: Audit failure
         _audit(
@@ -772,3 +804,108 @@ async def get_run_events(
             status_code=500,
             detail=_error("INTERNAL_ERROR", "Failed to get run events", {"error": str(e), "run_id": run_id})
         )
+
+
+# ============================================================================
+# Patch 3: Diagnostics on Max Ticks Reached
+# ============================================================================
+
+async def _write_diagnostics_on_tick_cap(
+    request: Request,
+    payload: TickOnceRequest,
+    env: str,
+    lane: str,
+    max_ticks: int
+) -> None:
+    """
+    Patch 3: Write diagnostics when max ticks is hit.
+    
+    Writes .forge/runs/<run_id>/diagnostics.json containing:
+    - Last known state
+    - Last N events
+    - Executor info
+    - Tick count reached
+    """
+    import json
+    from pathlib import Path
+    
+    # Get the most recently ticked run
+    with request.app.state.get_db() as con:
+        cur = con.cursor()
+        
+        # Find the most recent running run in this env/lane
+        cur.execute(
+            """
+            SELECT run_id, status, job_type, mode
+            FROM runs_v2
+            WHERE env = ? AND lane = ? AND status IN ('running', 'queued')
+            ORDER BY created_at DESC
+            LIMIT 1
+            """,
+            (env, lane)
+        )
+        run_row = cur.fetchone()
+        
+        if not run_row:
+            return  # No active run to diagnose
+        
+        run_id, status, job_type, mode = run_row
+        
+        # Get last known state
+        cur.execute(
+            "SELECT state_json FROM run_state_v2 WHERE run_id = ?",
+            (run_id,)
+        )
+        state_row = cur.fetchone()
+        last_state = json.loads(state_row[0]) if state_row else {}
+        
+        # Get last 50 events
+        cur.execute(
+            """
+            SELECT id, ts, event_type, payload_json
+            FROM run_events_v2
+            WHERE run_id = ?
+            ORDER BY ts DESC
+            LIMIT 50
+            """,
+            (run_id,)
+        )
+        event_rows = cur.fetchall()
+        last_events = [
+            {
+                "id": row[0],
+                "ts": row[1],
+                "event_type": row[2],
+                "payload": json.loads(row[3])
+            }
+            for row in event_rows
+        ]
+    
+    # Build diagnostics
+    diagnostics = {
+        "run_id": run_id,
+        "env": env,
+        "lane": lane,
+        "status": status,
+        "job_type": job_type,
+        "mode": mode,
+        "tick_count_reached": max_ticks,
+        "diagnostics_timestamp": _now(),
+        "last_known_state": last_state,
+        "last_events_count": len(last_events),
+        "last_events": last_events,
+        "executor": {
+            "name": "docs_only",
+            "owner_id": payload.owner_id,
+            "max_total_ticks_per_invocation": max_ticks
+        }
+    }
+    
+    # Write diagnostics to .forge/runs/<run_id>/diagnostics.json
+    forge_base = Path(".forge")
+    run_dir = forge_base / run_id
+    run_dir.mkdir(parents=True, exist_ok=True)
+    
+    diag_path = run_dir / "diagnostics.json"
+    with open(diag_path, "w") as f:
+        json.dump(diagnostics, f, indent=2)
